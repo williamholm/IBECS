@@ -443,6 +443,7 @@ void EntityTester::combinedTest()
 	
 	while (1)
 	{
+		messUpCache();//simulates program doing other stuff before next iteration
 		mTimer.startTimer();
 		for (int i = 0; i < currentNoOfARROW; ++i)
 		{
@@ -475,7 +476,7 @@ void EntityTester::combinedTest()
 		if (groundHit + wallHit >= noOfARROW)
 		{
 			std::cout << "\nGH " << groundHit << " WH " << wallHit;
-			std::cout << "\nTime taken for SS: " << mTimer.averageTime();
+			std::cout << "\nnAverage time taken for SS: " << mTimer.averageTime() << " micro seconds";
 			mTimer.clearSavedTimes();
 			break;
 		}
@@ -489,6 +490,7 @@ void EntityTester::combinedTest()
 
 	while (1)
 	{
+		messUpCache(); //simulates program doing other stuff before next iteration
 		mTimer.startTimer();
 		int currentNoOfArrow = arrows.size();
 		for (int i = 0; i < currentNoOfArrow; ++i)
@@ -518,7 +520,8 @@ void EntityTester::combinedTest()
 		if (groundHit + wallHit >= noOfARROW)
 		{
 			std::cout << "\nGH " << groundHit << " WH " << wallHit;
-			std::cout <<"\nTime taken for baseline with " << memUnusedPercent << "% memory being wasted: " << mTimer.averageTime();
+			std::cout <<"\nAverage time taken for baseline with " << memUnusedPercent << "% memory being wasted: "
+				<< mTimer.averageTime() << " micro seconds";
 			mTimer.clearSavedTimes();
 			break;
 		}
