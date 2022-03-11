@@ -1,6 +1,6 @@
 #pragma once
-#include "EntityManager.h"
-#include "Test/FunctionTimer.h"
+#include "../EntityManager.h"
+#include "FunctionTimer.h"
 #include "BasicEM.hpp"
 //test large class. Need to change and have overloaded < operater for some sort functionality.
 
@@ -27,9 +27,6 @@ public:
 	BasicEM mBasicEM;
 	EntityManager mTypeSortedEM;
 
-	//EntityManager mBasicEM;
-	//TypeSortedEM mTypeSortedEM;
-	//CompositeEM mCompositeEM;
 	Testing::Timer<std::chrono::microseconds> mTimer;
 
 	auto messUpCache(); //makes sure cache is cleared of useful stuff hopefully, need to make sure compiler isn't ignoring this.
@@ -41,9 +38,9 @@ public:
 	template<ET_ID id>
 	std::vector<Entity<id>> getSpreadOutEntities(uint32_t amount); //returns evenly spaced Entities in TSSS (might be different for others)
 	template<ET_ID id>
-	void addEntities(uint32_t amount);
+	void addEntities(uint32_t amount);//for recursion
 	template<ET_ID id>
-	void deleteEntities(uint32_t amount);
+	void deleteEntities(uint32_t amount);//for recursion
 	void addEntities(uint32_t amount);
 	void deleteEntities(uint32_t amount);
 	void combinedTest();

@@ -142,8 +142,8 @@ public:
 	//this is done to remain consistant with insert sort, having sorting on [SI,EI)
 	void quickSort(ET_ID id, uint32_t startIndex = 0, uint32_t endIndex = mCDS[id].size())
 	{
-		assert(component::sortedBy != 0);
-		internalQuickSort(id, startIndex, endIndex - 1);
+		//assert(component::sortedBy != 0);
+		internalQuickSort(id, startIndex, endIndex-1);
 
 		//links entity to components again after sorting. 
 		for (int i = startIndex; i < endIndex; i++)
@@ -159,15 +159,14 @@ private:
 		std::swap(mpSS->getEntity(id, a), mpSS->getEntity(id, b));
 	}
 	//basic implementation
-	void InsertSort(ET_ID id, uint32_t startIndex, uint32_t endIndex)
+	void InsertSort(ET_ID id, int startIndex, int endIndex)
 	{
-		for (int subsetSize = startIndex; subsetSize < endIndex; ++subsetSize)
+		for (; ++startIndex <= endIndex;)
 		{
-			int prevIndex = subsetSize - 1;
-			int currentIndex = subsetSize;
-			for (; mCDS[id][currentIndex] < mCDS[id][prevIndex] && subsetSize > startIndex; currentIndex--)
+			int j = startIndex;
+			for (; j > 0 && mCDS[id][j - 1] > mCDS[id][j]; j--)
 			{
-				swapComponent(id, prevIndex--, currentIndex);
+				swapComponent(id, j, j - 1);
 			}
 		}
 	}

@@ -1,8 +1,8 @@
 #pragma once
 #include <concepts>
 #include "BasicSparse.hpp"
-#include "./Entity.hpp"
-#include "ETData.hpp"
+#include "../Entity.hpp"
+#include "../ETData.hpp"
 
 //helper function to create tuple of sparses.
 //0 to remove TSS<0> from tuple as Comp_ID 0 is a blank id.

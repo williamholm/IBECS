@@ -1,18 +1,15 @@
-#include "EntityTester.h"
-
-
+#include "./EntityTester.h"
 
 EntityTester::EntityTester(uint32_t noOfEntities) : mBasicEM(), mTypeSortedEM(), mTimer()
 {
 	addEntities(noOfEntities);
 }
 
-
 EntityTester::~EntityTester()
 {
 }
 //removes previous stuff from cache (hopefully), making sure smaller repeat tests are not affected by stuff being already in l2/3 cache.
-_NODISCARD auto EntityTester::messUpCache()
+[[nodiscard]] auto EntityTester::messUpCache()
 {
 	static constexpr int size = 100000; //400000bytes;
 	std::vector<BigData<size>> data;
@@ -251,6 +248,7 @@ void EntityTester::unorderedAccess(int noOfIterations)
 	mTimer.clearSavedTimes();
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
 		for (int i = 1; i < noOfEntities; ++i)
 		{
@@ -266,6 +264,7 @@ void EntityTester::unorderedAccess(int noOfIterations)
 
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
 		auto posVec = mTypeSortedEM.begin<POS3D>(OBJ);
 		for (const auto id : Comp<POS3D>::ETsWithComp)
@@ -295,6 +294,7 @@ void EntityTester::unorderedAccess(int noOfIterations)
 
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
 
 		for (int i = 0; i < size; ++i)
@@ -319,6 +319,7 @@ void EntityTester::accessByET(int noOfIterations)
 	mTimer.clearSavedTimes();
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
 		indices = mBasicEM.getAllETIndices<ORIENTATION>(ARROW);
 		for (const auto& index : indices)
@@ -335,8 +336,8 @@ void EntityTester::accessByET(int noOfIterations)
 	mTimer.clearSavedTimes();
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
-
 		auto oriVec = mTypeSortedEM.begin<ORIENTATION>(ARROW);
 		int noOfArrows = mTypeSortedEM.noOfET(ARROW);
 		for (int i = 0; i < noOfArrows; ++i)
@@ -354,6 +355,7 @@ void EntityTester::accessByET(int noOfIterations)
 	baseline.resize(size);
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
+		messUpCache();
 		mTimer.startTimer();
 
 		for (int i = 0; i < size; ++i)

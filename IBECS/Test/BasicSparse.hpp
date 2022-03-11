@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "Entity.hpp"
-#include "Comp.h"
+#include "../Entity.hpp"
+#include "../Comp.h"
 
 
 template<Comp_ID mID, typename CompType = typename Comp<mID>::type>
