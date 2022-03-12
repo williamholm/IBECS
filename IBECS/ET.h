@@ -246,19 +246,16 @@ struct ET
 	//Usefull for scrolling down through inheritance structure
 	static constexpr int noOfDirectInheritors = getNoOfDirectInheritors<id>::value;
 	static constexpr std::array<ET_ID, noOfDirectInheritors> directInheritors = getDirectInheritors<id>::value;
-	//which ETs are an ET<id> (not just direct inheritors), used for searches. 
+	//which ETs are an ET<id> (not just direct inheritors). 
 	static constexpr int noOfInheritors = noOfUniqueElements(getInheritors<id>::value);
 	static constexpr std::array<ET_ID, noOfInheritors> inheritors = uniqueElements<noOfInheritors>(getInheritors<id>::value);
-	//contains these ETs
+	//contains these ETs - not implemented currently
 	static constexpr int NoOfETs = ETInfo<id>::NoOfETs;
 	static constexpr std::array<ET_ID, NoOfETs> ETs = ETInfo<id>::ETs;
 	//All parents
 	static constexpr int noOfParents = noOfUniqueElements(getParents<id>::value);
 	static constexpr std::array<ET_ID, noOfParents> parents = uniqueElements<noOfParents>(getParents<id>::value);
-	//what components are there. 
-	//static constexpr int noOfComponents = getNoOfComponents<id>::value + ETInfo<id>::noOfNewComponents;
-	//static constexpr std::array<Comp_ID, noOfComponents> components = concatinate(getComponents<id>::value, ETInfo<id>::newComponents);
-	//
+	//Components
 	static constexpr int noOfComponents = noOfUniqueElements(concatinate(getComponents<id>::value, ETInfo<id>::newComponents));
 	static constexpr std::array<Comp_ID, noOfComponents> components =
 		uniqueElements<noOfComponents>(concatinate(getComponents<id>::value, ETInfo<id>::newComponents));
@@ -269,7 +266,7 @@ struct ET
 
 	//pass in lambda of form []<ET_ID>(args), this can be replaced in c++23.
 	template<typename... Args>
-	static void forAllLoop(auto lambda,Args... args) //need to make other loops for pass by val and other methods.
+	static void forAllLoop(const auto& lambda,const Args&... args) //need to make other loops for pass by val and other methods.
 	{
 		lambda(lambdaTrick<ET_ID, id>(), args...);
 		constexpr_for_each<noOfInheritors,0,ET_ID,inheritors>(lambda, args...);
@@ -277,7 +274,7 @@ struct ET
 	}
 
 	template<typename... Args>
-	static void forEachComponent(const auto& lambda, Args... args) //need to make other loops for pass by val and other methods.
+	static void forEachComponent(const auto& lambda, const Args&... args) //need to make other loops for pass by val and other methods.
 	{
 		constexpr_for_each<noOfComponents, 0,Comp_ID, components>(lambda, args...);
 		return;

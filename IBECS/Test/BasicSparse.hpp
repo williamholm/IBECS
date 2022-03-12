@@ -7,7 +7,6 @@
 template<Comp_ID mID, typename CompType = typename Comp<mID>::type>
 class BasicSparse
 {
-	//not entirely sure why DataType needs to be specified here, but functionality is unchanged
 	using component = Comp<mID>;
 
 public:

@@ -82,7 +82,6 @@ struct Comp
 {
 	//these 3 moved here from CompInfo for ease of access despite duplication.
 	using type = ComponentType;
-
 	static constexpr Comp_ID sortedBy = CompInfo<id>::sortedBy;
 	static constexpr uint32_t attributes = CompInfo<id>::attributes;
 	//if compArray[ET_ID] = true ET_ID contains component.
@@ -90,6 +89,7 @@ struct Comp
 	//sparse set for ordering ETs which have this component, last value is total no of entitys with component.
 	static constexpr auto sparse = getCompSparse<id>();
 	static constexpr int noOfETsWithComp = sparse[ET_ID::MAX_ET_ID];
+	//array of ET_IDs which contain this component - mainly useful for testing
 	static constexpr auto ETsWithComp = isInSparse<id, noOfETsWithComp>();
 	static constexpr int sortGroup = positionalArray(sortArray(), uniqueElements<noOfUniqueElements(sortArray())>(sortArray()))[id];
 };

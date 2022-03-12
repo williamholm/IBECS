@@ -4,21 +4,12 @@
 #include "Entity.hpp"
 #include "ETData.hpp"
 
-
-template<Comp_ID component>
-concept SortedComponent = (SORTABLE==(Comp<(Comp_ID)component>::attributes & SORTABLE));
-
-template<Comp_ID component>
-concept UnSortedComponent = !SortedComponent<component>;
-
-
-//create tuple types for EM
+//create tuple of components in EM
 template<int... ints>
 constexpr auto genTypesForTypeSortedTuple(std::integer_sequence<int, 0, ints...> seq)
 {
 	return std::tuple<int, TypeSortedSS<(Comp_ID)ints>...>();
 }
-
 typedef decltype(genTypesForTypeSortedTuple(std::make_integer_sequence<int, MAX_COMP_ID>())) TypeSortedSSTuple;
 
 class EntityManager

@@ -314,8 +314,8 @@ struct ETInfo<ET_ID::MAGIC>
 	static constexpr std::array<ET_ID, NoOfETs> ETs = {};
 
 	//what new components are there. 
-	static constexpr int noOfNewComponents = 1;
-	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { Comp_ID::PERMA_FORCE };
+	static constexpr int noOfNewComponents = 2;
+	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { Comp_ID::PERMA_FORCE, Comp_ID::STATE };
 
 	static constexpr uint32_t maxNoOfET = 200000;
 	//for testing

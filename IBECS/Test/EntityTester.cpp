@@ -153,7 +153,7 @@ void EntityTester::accessByComp(int noOfIterations)
 {
 	messUpCache();
 	const int noOfEntities = mBasicEM.size<POS3D>();
-	std::cout << "\n\n\nUpdating positions of " << noOfEntities << " entities\n";
+	std::cout << "\n\n\nUpdating positions of " << noOfEntities << " entities by their speed\n";
 	mTimer.clearSavedTimes();
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
@@ -244,7 +244,7 @@ void EntityTester::accessByComp(int noOfIterations)
 void EntityTester::unorderedAccess(int noOfIterations)
 {
 	const int noOfEntities = mBasicEM.size<POS3D>();
-	std::cout << "\n\n\nUpdating positions of " << noOfEntities << " entities\n";
+	std::cout << "\n\n\nUpdating positions of " << noOfEntities << " entities by constant amount\n";
 	mTimer.clearSavedTimes();
 	for (int currentIter = 0; currentIter < noOfIterations; ++currentIter)
 	{
