@@ -18,34 +18,31 @@
     <ClInclude Include="Test\BasicSparse.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Comp.h">
+    <ClInclude Include="Comp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CompInfo.h">
+    <ClInclude Include="CompInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CosntexprUtility.h">
+    <ClInclude Include="CosntexprUtility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityManager.h">
+    <ClInclude Include="EntityManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Test\EntityTester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ET.h">
+    <ClInclude Include="ET.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ETData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ETInfo.h">
+    <ClInclude Include="ETInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Test\FunctionTimer.h">

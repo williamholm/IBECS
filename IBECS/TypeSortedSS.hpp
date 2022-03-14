@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "Entity.hpp"
-#include "Comp.h"
+#include "Comp.hpp"
 
 /*
 Reasons for this class:

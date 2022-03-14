@@ -1,5 +1,5 @@
 #pragma once
-#include "ET.h"
+#include "ET.hpp"
 #pragma region ComponentArray Function
 
 template<Comp_ID comp_id, int index = ET_ID::MAX_ET_ID>

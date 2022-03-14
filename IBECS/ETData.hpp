@@ -1,6 +1,6 @@
 #pragma once
 #include <assert.h>
-#include "Comp.h"
+#include "Comp.hpp"
 //trick to get type for ids, for some reason you can't use Comp<id>::type in Data. Might be better way.
 template<Comp_ID id, typename ReturnType = typename Comp<id>::type>
 constexpr ReturnType faker()

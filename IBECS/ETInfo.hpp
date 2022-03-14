@@ -1,5 +1,5 @@
 #pragma once
-#include "CompInfo.h"
+#include "CompInfo.hpp"
 //256 ET doesn't work as recursion breaks down at that point in ET.h. 150 works but compiles slowly.
 
 

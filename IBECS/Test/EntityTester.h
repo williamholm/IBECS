@@ -1,5 +1,5 @@
 #pragma once
-#include "../EntityManager.h"
+#include "../EntityManager.hpp"
 #include "FunctionTimer.h"
 #include "BasicEM.hpp"
 //test large class. Need to change and have overloaded < operater for some sort functionality.

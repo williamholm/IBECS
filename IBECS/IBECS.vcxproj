@@ -21,16 +21,15 @@
   <ItemGroup>
     <ClInclude Include="Test\BasicEM.hpp" />
     <ClInclude Include="Test\BasicSparse.hpp" />
-    <ClInclude Include="Comp.h" />
-    <ClInclude Include="CompInfo.h" />
-    <ClInclude Include="CosntexprUtility.h" />
+    <ClInclude Include="Comp.hpp" />
+    <ClInclude Include="CompInfo.hpp" />
+    <ClInclude Include="CosntexprUtility.hpp" />
     <ClInclude Include="Entity.hpp" />
-    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Test\EntityTester.h" />
-    <ClInclude Include="EntityType.h" />
-    <ClInclude Include="ET.h" />
+    <ClInclude Include="ET.hpp" />
     <ClInclude Include="ETData.hpp" />
-    <ClInclude Include="ETInfo.h" />
+    <ClInclude Include="ETInfo.hpp" />
     <ClInclude Include="Test\FunctionTimer.h" />
     <ClInclude Include="Test\vec3.hpp" />
     <ClInclude Include="TypeSortedSS.hpp" />
