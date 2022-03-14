@@ -1,7 +1,7 @@
 # IBECS
 IBECS is an Entity Component System that stores component data in vectors that can be accessed via entity types which are an analouge to structs in standard C/C++
 # Requirements
-c++ 20, has only been tested on MSVC but nothing should be specific to it.
+c++ 20, google test if doing the unit tests in Test/test.cpp.
 # How to Use
 add all .hpp files not in the Test folder to your project and then include EntityManager.hpp in any file that you wish to use the ECS
 ## Adding Components
@@ -16,7 +16,7 @@ enum Comp_ID
 };
 
 //then add the information about component in the CompInfo template
-//template to follow for creating componants
+//template to follow for creating components
 template<Comp_ID id>
 struct CompInfo
 {
@@ -43,8 +43,7 @@ struct CompInfo<Comp_ID::POS3D>
 
 };
 ```
-currently sortedBy only supports BLANK (unsorted) and sorted by its own < operator. In future you should be able to set it to a sepererate Compoent.
-See EntityManager section to see how this functions
+currently sortedBy only supports BLANK (unsorted) and sorted by itself using its types < operator. In future you should be able to sort it by a seperate Component.
 ## Adding Entity Types
 ```c++
 //simular to CompInfo, in ETInfo remove all test Entity Type IDs (ET_ID) and add your own e.g OBJ, PHYS_OBJ
