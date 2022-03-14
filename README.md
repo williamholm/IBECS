@@ -5,10 +5,12 @@ c++ 20, has only been tested on MSVC but nothing should be specific to it.
 # How to Use
 add all .hpp files not in the Test folder to your project and then include EntityManager.hpp in any file that you wish to use the ECS
 ## Adding Components
-code
+```c++
+//comenmt
+```
 explain sort options
 ## Adding Entity Types
-```c
+```c++
 //comenmt
 ```
 code
