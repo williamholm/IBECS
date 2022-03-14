@@ -140,7 +140,7 @@ public:
 		}
 	}
 	//this is done to remain consistant with insert sort, having sorting on [SI,EI)
-	void quickSort(ET_ID id, uint32_t startIndex = 0, uint32_t endIndex = mCDS[id].size())
+	void quickSort(ET_ID id, uint32_t startIndex, uint32_t endIndex)
 	{
 		//assert(component::sortedBy != 0);
 		internalQuickSort(id, startIndex, endIndex-1);

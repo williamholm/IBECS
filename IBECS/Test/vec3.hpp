@@ -29,6 +29,10 @@ public:
 		return this->x < vec.x;
 	}
 
+	bool operator>(const vec3& vec)
+	{
+		return (!this->operator<(vec));
+	}
 	vec3 scalarMulti(float scalar)
 	{
 		return vec3(x * scalar, y * scalar, z * scalar);

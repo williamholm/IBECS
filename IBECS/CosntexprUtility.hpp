@@ -175,3 +175,36 @@ constexpr auto positionalArray(const std::array<T, N>& fullArr, const std::array
 	}
 	return positionArray;
 }
+
+template<class T, int... sizes>
+constexpr auto intersection(const std::array<T, sizes>&... arrays)
+{
+	//auto temp = intersectionRec(arrays...);
+	//auto size = noOfInstancesOf(T(), temp);
+	//temp = removeInstancesOf<T,size+1,size>(T(), temp);
+	//return temp;
+	return intersectionRec(arrays...);
+}
+
+template<class T, int N, int M>
+constexpr auto intersectionRec(const std::array<T, N>& arr1, const std::array<T, M>& arr2)
+{
+	std::array<T, N> temp = {};
+	int counter = 0;
+	for (int i = 0; i < N; ++i)
+	{
+		if (isInArray(arr1[i], arr2))
+		{
+			temp[counter] = arr1[i];
+			++counter;
+		}
+	}
+	return temp;
+}
+template<class T,int N, int M, int... sizes>
+constexpr auto intersectionRec(const std::array<T,N>& arr1, const std::array<T, M>& arr2, const std::array<T, sizes>&... arrays)
+{
+	auto first = intersectionRec(arr1, arr2);
+	return intersectionRec(first, arrays...);
+
+}

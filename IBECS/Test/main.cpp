@@ -1,6 +1,5 @@
 #pragma once
 #include "EntityTester.h"
-//look at moving some arrays in testing to vectors if we don't want them on stack!
 int main()
 {
 	EntityTester tester(1000000);
@@ -10,6 +9,9 @@ int main()
 	tester.accessByComp(10);
 	tester.accessByET(10);
 	tester.combinedTest();
+
+	constexpr auto b = intersection(Comp<POS3D>::ETsWithComp, Comp<PERMA_FORCE>::ETsWithComp, Comp<STATE>::ETsWithComp);
+
 	while (1) {}
 	return 0;
 }

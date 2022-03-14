@@ -136,7 +136,7 @@ public:
 	void sort(ET_ID id)
 	{
 		assert(Comp<component>::sortedBy != 0);
-		std::get<component>(mSparses).quickSort(id);
+		std::get<component>(mSparses).quickSort(id,0,this->noOfET(id));
 	}
 	inline uint32_t noOfET(ET_ID id) { return mSharedSSs[0].size(id); }
 

@@ -249,6 +249,8 @@ struct ET
 	//which ETs are an ET<id> (not just direct inheritors). 
 	static constexpr int noOfInheritors = noOfUniqueElements(getInheritors<id>::value);
 	static constexpr std::array<ET_ID, noOfInheritors> inheritors = uniqueElements<noOfInheritors>(getInheritors<id>::value);
+	//inclusive inheritors - same as inheritors but includes id, usefull for loops ect
+	static constexpr std::array<ET_ID, noOfInheritors+1> incInheritors = concatinate(id,inheritors);
 	//contains these ETs - not implemented currently
 	static constexpr int NoOfETs = ETInfo<id>::NoOfETs;
 	static constexpr std::array<ET_ID, NoOfETs> ETs = ETInfo<id>::ETs;
