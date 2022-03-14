@@ -43,7 +43,8 @@ struct CompInfo<Comp_ID::POS3D>
 
 };
 ```
-explain sort options
+currently sortedBy only supports BLANK (unsorted) and sorted by its own < operator. In future you should be able to set it to a sepererate Compoent.
+See EntityManager section to see how this functions
 ## Adding Entity Types
 ```c++
 //simular to CompInfo, in ETInfo remove all test Entity Type IDs (ET_ID) and add your own e.g OBJ, PHYS_OBJ
@@ -56,7 +57,7 @@ enum ET_ID
 };
 
 //then follow bellow temp
-//Note: Inheritance currently works by assuming if you inherit the same component from 2 different parents that you only want one of that Component.
+//Note: Inheritance currently works by assuming if you inherit a component from 2 parents that you only want one of that Component.
 template<ET_ID id>
 struct ETInfo
 {
@@ -109,9 +110,71 @@ struct ETInfo<ET_ID::PHYS_OBJ>
 };
 
 ```
-code
 ## Using EntityManager
-code
+```c++
+#include "EntityManager.hpp"
+int main()
+{
+		EntityManager EM;
+	ET<PHYS_OBJ>::components; //provides array of components for reference
+	//struct containing components of Entity Type OBJ
+	ETData<PHYS_OBJ> physObjData;
+
+	physObjData.get<STATE>() = 0;
+	physObjData.get<POS3D>() = vec3(1, 2, 3);
+	physObjData.get<SPEED>() = 10;
+	physObjData.get<ORIENTATION>() = vec3(0,1,0);
+
+	//add single PHYS_OBJ
+	Entity32Bit phyObjEntity = EM.addEntity(physObjData);
+
+	//add 1000 PHYS_OBJ
+	for (int i = 0; i < 1000; ++i)
+	{
+		//note no need to store return if Entity is anonymous 
+		EM.addEntity(physObjData);
+	}
+	//exmaple to update position by velocity, with unsorted position
+	auto posIter = EM.begin<POS3D>(PHYS_OBJ);
+	auto oriIter = EM.begin<ORIENTATION>(PHYS_OBJ);
+	auto speedIter = EM.begin<SPEED>(PHYS_OBJ);
+	int size = EM.noOfET(PHYS_OBJ);
+
+	for (int i = 0; i < size; ++i)
+	{
+		posIter[i] += oriIter[i].scalarMulti(speedIter[i]);
+	}
+
+	//same example but if you have sorted positions
+	EM.sort<POS3D>(PHYS_OBJ);
+	Entity32Bit currentEntity;
+
+	for (int i = 0; i < size; ++i)
+	{
+		//this retrieves Entity that contiants speedIter[i], this is a slower way to access data so systems should avoid if possible.
+		currentEntity = EM.getEntity<SPEED>(PHYS_OBJ, i); 
+		//as POS3D is now a sorted component you cannot rely on posVecIter[i] belonging to same entity as ori/speedVecIter[i]
+		EM.getComp<POS3D>(currentEntity) += oriIter[i].scalarMulti(speedIter[i]);
+	}
+	//delete entity
+	EM.deleteEntity<PHYS_OBJ>(phyObjEntity);
+
+	//you can utilize inheritance to update all PHY_OBJ and all things that inherit from it 
+	for (const auto ET : ET<PHYS_OBJ>::incInheritors)
+	{
+		int size = EM.noOfET(ET);
+		posIter = EM.begin<POS3D>(ET);
+		oriIter = EM.begin<ORIENTATION>(ET);
+		speedIter = EM.begin<SPEED>(ET);
+
+		for (int i = 0; i < size; ++i)
+		{
+			currentEntity = EM.getEntity<SPEED>(ET, i);
+			EM.getComp<POS3D>(currentEntity) += oriIter[i].scalarMulti(speedIter[i]);
+		}
+	}
+}
+```
 explain best case / pitfalls
 # Credit
 idea for using sparse sets in an ECS comes from https://github.com/skypjack/entt.
