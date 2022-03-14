@@ -111,6 +111,7 @@ struct ETInfo<ET_ID::PHYS_OBJ>
 
 ```
 ## Using EntityManager
+Idealy when using this you want to use expressions which use components that are either all unsorted or sorted by the same component, as that is when the memory layout is most effecient. 
 ```c++
 #include "EntityManager.hpp"
 int main()
@@ -172,6 +173,8 @@ int main()
 	}
 }
 ```
-Idealy when using this you want to use expressions which use components that are either all unsorted or sorted by the same component, as that is when the memory layout is most effecient. 
+# Testing
+to test include the Test folder when you have the rest of the project, or use the solution file if you have visual studio
+for the unit testing in test.cpp you need to include the google test unit testing suite
 # Credit
 idea for using sparse sets in an ECS comes from https://github.com/skypjack/entt.
