@@ -125,15 +125,14 @@ int main()
 	physObjData.get<SPEED>() = 10;
 	physObjData.get<ORIENTATION>() = vec3(0,1,0);
 
-	//add single PHYS_OBJ
 	Entity32Bit phyObjEntity = EM.addEntity(physObjData);
 
 	//add 1000 PHYS_OBJ
 	for (int i = 0; i < 1000; ++i)
-	{
-		//note no need to store return if Entity is anonymous 
-		EM.addEntity(physObjData);
+	{		
+		EM.addEntity(physObjData); //note no need to store return if Entity is anonymous 
 	}
+	
 	//exmaple to update position by velocity, with unsorted position
 	auto posIter = EM.begin<POS3D>(PHYS_OBJ);
 	auto oriIter = EM.begin<ORIENTATION>(PHYS_OBJ);
@@ -156,8 +155,6 @@ int main()
 		//as POS3D is now a sorted component you cannot rely on posVecIter[i] belonging to same entity as ori/speedVecIter[i]
 		EM.getComp<POS3D>(currentEntity) += oriIter[i].scalarMulti(speedIter[i]);
 	}
-	//delete entity
-	EM.deleteEntity<PHYS_OBJ>(phyObjEntity);
 
 	//you can utilize inheritance to update all PHY_OBJ and all things that inherit from it 
 	for (const auto ET : ET<PHYS_OBJ>::incInheritors)
@@ -175,6 +172,6 @@ int main()
 	}
 }
 ```
-explain best case / pitfalls
+Idealy when using this you want to use expressions which use components that are either all unsorted or sorted by the same component, as that is when the memory layout is most effecient. 
 # Credit
 idea for using sparse sets in an ECS comes from https://github.com/skypjack/entt.
