@@ -8,12 +8,12 @@ add all .hpp files not in the Test folder to your project and then include Entit
 code
 explain sort options
 ## Adding Entity Types
-'''c
+```c
 //comenmt
-'''
+```
 code
 ## Using EntityManager
 code
 explain best case / pitfalls
-## credit
+# Credit
 idea for using sparse sets in an ECS comes from https://github.com/skypjack/entt.
