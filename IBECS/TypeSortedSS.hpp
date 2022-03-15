@@ -14,7 +14,6 @@ no add/delete since lookup) - can use same SS for all Components
 5) more friendly for MT as no need for pending delete to stall whole system (unless you are mixing in 2SS's).
 
 Reasons against:
-
 1) can't be sorted by component across multiple entities
 2) data is less continuous
 3) Can't do shared component as there is only one sparse set for all components so a shared component cannot have mEDS[group][i] = mCDS[group][i].
@@ -23,11 +22,9 @@ Reasons against:
 class SegSparseSet
 {
 private:
-	std::array<std::vector<Entity32Bit>, MAX_ET_ID> mEDS; //can make this a pointer as well? pointing to shared EDS between all TypeSortedSS
-	std::array<std::vector<uint32_t>, MAX_ET_ID> mSparses; //Is there a better way to do this?
-
+	std::array<std::vector<Entity32Bit>, MAX_ET_ID> mEDS; 
+	std::array<std::vector<uint32_t>, MAX_ET_ID> mSparses;
 public:
-
 	inline bool entityInSet(Entity32Bit entity) noexcept { return (mSparses[entity.type()][entity.number()] != _UI32_MAX); }
 
 	inline std::vector<Entity32Bit>& getEntities(const uint32_t group) { return mEDS[group]; }

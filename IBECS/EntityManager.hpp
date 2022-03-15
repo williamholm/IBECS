@@ -15,6 +15,7 @@ typedef decltype(genTypesForTypeSortedTuple(std::make_integer_sequence<int, MAX_
 class EntityManager
 {
 private:
+	//size = number of sorting groups
 	std::array<SegSparseSet,noOfUniqueElements(sortArray())> mSharedSSs;
 	TypeSortedSSTuple mSparses;
 	std::array<uint32_t,MAX_ET_ID> mNextEntityNum;
@@ -61,7 +62,7 @@ public:
 	}
 private:
 	template<ET_ID id, int index = ET<id>::noOfComponents - 1>
-	void addData(Entity32Bit entity, ETData<id>& data)//can remove entity and just add directly to CDS after chaning 2SS - test speed.
+	void addData(Entity32Bit entity, ETData<id>& data)
 	{
 		//if sorted by itself add entity to the correct sorted SharedSS
 		if constexpr (Comp<ET<id>::components[index]>::sortedBy == ET<id>::components[index])
@@ -128,14 +129,14 @@ public:
 	template<Comp_ID component>
 	void sort()
 	{
-		assert(Comp<component>::sortedBy != 0);
+		static_assert(Comp<component>::sortedBy != 0);
 		std::get<component>(mSparses).sort();
 	}
 	//sort component for specific ET
 	template<Comp_ID component>
 	void sort(ET_ID id)
 	{
-		assert(Comp<component>::sortedBy != 0);
+		static_assert(Comp<component>::sortedBy != 0);
 		std::get<component>(mSparses).quickSort(id,0,this->noOfET(id));
 	}
 	inline uint32_t noOfET(ET_ID id) { return mSharedSSs[0].size(id); }
@@ -154,8 +155,6 @@ public:
 
 	template<Comp_ID component>
 	inline Entity32Bit getEntity(ET_ID id, uint32_t index) { return mSharedSSs[Comp<component>::sortGroup].getEntity(id, index); }
-
-
 
 private:
 	template<int index = 1>
