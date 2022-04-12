@@ -14,6 +14,18 @@ constexpr bool isInArray(const T& x, const std::array<T, N>& arr)
 	}
 	return false;
 }
+template<class T,int M, int N>
+constexpr bool areAllInArray(const std::array<T,M>& isInArr, const std::array<T, N>& arr)
+{
+	for (const auto& x : isInArr)
+	{
+		if (!isInArray(x, arr))
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 template<class T, int N, int M> //constexpr concatination of two arrays of the same type.
 constexpr std::array<T, N + M> concatinate(const std::array<T, N>& arr1, const std::array<T, M>& arr2)

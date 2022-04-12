@@ -43,7 +43,7 @@ public:
 		assert(entityInSet(entity));
 		//change last member in group to point to deleted component;
 		changeIndex(*(mEDS[entity.type()].end() - 1), getIndex(entity));
-		//swapComponent + delete EDS
+		//swap entity to back of EDS then pop back.
 		mEDS[entity.type()][getIndex(entity)] = *(mEDS[entity.type()].end() - 1);
 		mEDS[entity.type()].pop_back();
 		//clear entity in sparse

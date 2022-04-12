@@ -298,3 +298,38 @@ static consteval std::array<uint32_t,MAX_ET_ID> maxEntityAmount()
 		return nextArr;
 	}
 }
+
+
+template<int noOfComponents, int id = MAX_ET_ID-1>
+constexpr std::array<bool, MAX_ET_ID> getIntersectOf(const std::array<Comp_ID,noOfComponents>& components)
+{
+	if constexpr (id <= 0)
+	{
+		std::array<bool, MAX_ET_ID> falseArr = {};
+		return falseArr;
+	}
+	else
+	{
+		std::array<bool, MAX_ET_ID> arr = getIntersectOf<noOfComponents, id -1>(components);
+		arr[id] = areAllInArray(components, ET<(ET_ID)id>::components);
+		return arr;
+	}
+}
+template<int noOfComponents, int id = MAX_ET_ID - 1>
+constexpr std::array<ET_ID, MAX_ET_ID> getIntersec(const std::array<Comp_ID, noOfComponents>& components)
+{
+	if constexpr (id <= 0)
+	{
+		std::array<ET_ID, MAX_ET_ID> falseArr = {};
+		return falseArr;
+	}
+	else
+	{
+		std::array<ET_ID, MAX_ET_ID> arr = getIntersec<noOfComponents, id - 1>(components);
+		if (areAllInArray(components, ET<(ET_ID)id>::components))
+		{
+			arr[id] = (ET_ID)id;
+		}
+		return arr;
+	}
+}
