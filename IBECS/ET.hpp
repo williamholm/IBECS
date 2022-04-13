@@ -193,7 +193,7 @@ struct GNC
 #pragma endregion
 
 template<int N>
-constexpr std::array<int, MAX_COMP_ID> CompSparse(const std::array<Comp_ID, N>& arr)
+constexpr std::array<int, MAX_COMP_ID> CompSparse(const std::array<Comp_ID, N>& components)
 {
 	std::array<int, MAX_COMP_ID> sparse = {};
 
@@ -203,7 +203,7 @@ constexpr std::array<int, MAX_COMP_ID> CompSparse(const std::array<Comp_ID, N>& 
 	}
 	for (int i = 0; i < N; ++i)
 	{
-		sparse[arr[i]] = i;
+		sparse[components[i]] = i;
 	}
 
 	return sparse;
@@ -332,4 +332,30 @@ constexpr std::array<ET_ID, MAX_ET_ID> getIntersec(const std::array<Comp_ID, noO
 		}
 		return arr;
 	}
+}
+template<int N, ET_ID id>
+constexpr std::array<ET_ID, MAX_COMP_ID> sharedComps(const std::array<Comp_ID, N>& components)
+{
+	std::array<ET_ID, MAX_COMP_ID> sparse = {};
+	if constexpr (ETInfo<id>::shareWith == BLANK_FOR_SPARSE)
+	{
+		for (int i = 0; i < N; ++i)
+		{
+				sparse[components[i]] = id;
+		}
+	}
+	else
+	{
+		sparse = sharedComps< ET<ETInfo<id>::shareWith>::noOfComponents, ETInfo<id>::shareWith>(
+			ET<ETInfo<id>::shareWith>::components);
+		for (int i = 0; i < N; ++i)
+		{
+			if (sparse[components[i]] == BLANK_FOR_SPARSE)
+			{
+				sparse[components[i]] = id;
+			}
+		}
+	}
+
+	return sparse;
 }

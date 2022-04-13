@@ -58,6 +58,24 @@ struct ETInfo
 
 	//max number of this entity type - can be changed at runtime resizing sparse set. This does not include inheritors.
 	static constexpr uint32_t maxNoOfET = 0;
+
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+	//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+	//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
+	/*
+		pros of groups
+		can work with non inherited things
+		easy to implement
+		cons
+		no obvious way to include all shared components between ETs using same grouping ET_ID
+
+		groups advanced method: follow chain of groupings and place in 
+		std::array<ET_ID,MAX_COMP_ID> sparsish[Comp_ID] = ETgroup for that component, with default value being ET_ID.
+		sparse sets then would when creating a new entity go addEntity(ET<id>sparsish[Comp],index)
+	*/
+	// 
 	//for testing
 	static constexpr char const* name = "";
 };
@@ -79,6 +97,11 @@ struct ETInfo<ET_ID::OBJ>
 
 	//max number of this entity type - can be changed at runtime resizing sparse set.
 	static constexpr uint32_t maxNoOfET = 250000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const*  name = "OBJ";
 };
@@ -99,6 +122,11 @@ struct ETInfo<ET_ID::STATIC_OBJ>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { };
 
 	static constexpr uint32_t maxNoOfET = 150000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "STATIC_OBJ";
 };
@@ -119,6 +147,11 @@ struct ETInfo<ET_ID::PLANT>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { };
 
 	static constexpr uint32_t maxNoOfET = 150000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "PLANT";
 };
@@ -139,6 +172,11 @@ struct ETInfo<ET_ID::PHYS_OBJ>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { Comp_ID::SPEED, Comp_ID::ORIENTATION };
 
 	static constexpr uint32_t maxNoOfET = 200000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "PHYS_OBJ";
 };
@@ -159,6 +197,11 @@ struct ETInfo<ET_ID::CREATURE>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 50000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "CREATURE";
 };
@@ -179,6 +222,11 @@ struct ETInfo<ET_ID::NPC>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 100000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "NPC";
 };
@@ -199,6 +247,11 @@ struct ETInfo<ET_ID::PC>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 5000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "PC";
 };
@@ -219,6 +272,11 @@ struct ETInfo<ET_ID::MONSTER>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 100000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "MONSTER";
 };
@@ -239,6 +297,11 @@ struct ETInfo<ET_ID::WOLF>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 10000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "WOLF";
 };
@@ -258,6 +321,11 @@ struct ETInfo<ET_ID::TALKING_WOLF>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 1000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "TALKING_WOLF";
 };
@@ -278,6 +346,11 @@ struct ETInfo<ET_ID::PROJECTILE>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 100000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "PROJECTILE";
 };
@@ -298,6 +371,11 @@ struct ETInfo<ET_ID::ARROW>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = {};
 
 	static constexpr uint32_t maxNoOfET = 100000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = OBJ;
 	//for testing
 	static constexpr char const* name = "ARROW";
 };
@@ -318,6 +396,11 @@ struct ETInfo<ET_ID::MAGIC>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { Comp_ID::PERMA_FORCE, Comp_ID::STATE };
 
 	static constexpr uint32_t maxNoOfET = 200000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = BLANK_FOR_SPARSE;
 	//for testing
 	static constexpr char const* name = "MAGIC";
 };
@@ -337,6 +420,11 @@ struct ETInfo<ET_ID::MAGIC_ARROW>
 	static constexpr std::array<Comp_ID, noOfNewComponents> newComponents = { Comp_ID::MASS };
 
 	static constexpr uint32_t maxNoOfET = 100000;
+	//experimental system to allow you to combine sparse sets of shared components between entities.
+//you should enable this if the shared pool of components are rarely needed to seperate into individual ETs
+//and there are small ETs
+	static constexpr bool allowETsToGroup = false;
+	static constexpr ET_ID shareWith = ARROW;
 	//for testing
 	static constexpr char const* name = "MAGIC_ARROW";
 };
