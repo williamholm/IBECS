@@ -10,8 +10,8 @@ int main()
 	tester.accessByComp(100);
 	tester.accessByET(100);
 //	tester.combinedTest();
-	//kinda wordy but okish - need more testing.
-	constexpr auto te = sharedComps<ET<MAGIC_ARROW>::noOfComponents, MAGIC_ARROW>(ET<MAGIC_ARROW>::components);
+	constexpr auto re = sharedComp<MAGIC_ARROW>();
+
 	constexpr auto be = ET<ARROW>::sparse;
 	//constexpr auto b = intersection(Comp<POS3D>::ETsWithComp, Comp<PERMA_FORCE>::ETsWithComp, Comp<STATE>::ETsWithComp);
 	//constexpr auto p = removeInstancesOf<ET_ID,13,13-noOfInstancesOf(BLANK_FOR_SPARSE,b)>(BLANK_FOR_SPARSE, b);

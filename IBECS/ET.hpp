@@ -341,7 +341,7 @@ constexpr std::array<ET_ID, MAX_COMP_ID> sharedComps(const std::array<Comp_ID, N
 	{
 		for (int i = 0; i < N; ++i)
 		{
-				sparse[components[i]] = id;
+			sparse[components[i]] = id;
 		}
 	}
 	else
@@ -353,6 +353,33 @@ constexpr std::array<ET_ID, MAX_COMP_ID> sharedComps(const std::array<Comp_ID, N
 			if (sparse[components[i]] == BLANK_FOR_SPARSE)
 			{
 				sparse[components[i]] = id;
+			}
+		}
+	}
+
+	return sparse;
+}
+
+//this function returns constexpr array with sharedComp<id>()[component] being ET_ID that the component in ET<id> is grouped to
+template<ET_ID id>
+constexpr std::array<ET_ID, MAX_COMP_ID> sharedComp()
+{
+	std::array<ET_ID, MAX_COMP_ID> sparse = {};
+	if constexpr (ETInfo<id>::shareWith == BLANK_FOR_SPARSE)
+	{
+		for (int i = 0; i < ET<id>::noOfComponents; ++i)
+		{
+			sparse[ET<id>::components[i]] = id;
+		}
+	}
+	else
+	{
+		sparse = sharedComp<ETInfo<id>::shareWith>();
+		for (int i = 0; i < ET<id>::noOfComponents; ++i)
+		{
+			if (sparse[ET<id>::components[i]] == BLANK_FOR_SPARSE)
+			{
+				sparse[ET<id>::components[i]] = id;
 			}
 		}
 	}
