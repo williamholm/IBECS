@@ -266,6 +266,10 @@ struct ET
 
 	static constexpr char const* name = ETInfo<id>::name;
 
+	static constexpr bool hasComp(Comp_ID component)
+	{
+		return !(sparse[component] == MAX_COMP_ID);
+	}
 	//pass in lambda of form []<ET_ID>(args), this can be replaced in c++23.
 	template<typename... Args>
 	static void forAllLoop(const auto& lambda,const Args&... args) //need to make other loops for pass by val and other methods.

@@ -1,6 +1,7 @@
 #pragma once
 #include "EntityTester.h"
 #include <algorithm>
+
 int main()
 {
 	EntityTester tester(1000000);
@@ -10,16 +11,17 @@ int main()
 	tester.accessByComp(100);
 	tester.accessByET(100);
 //	tester.combinedTest();
-	constexpr auto re = sharedComp<MAGIC_ARROW>();
+	constexpr auto re = sharedComp<MAGIC_ARROW>(); //need to change add/delete entity and non-random acces
 
 	constexpr auto be = ET<ARROW>::sparse;
-	//constexpr auto b = intersection(Comp<POS3D>::ETsWithComp, Comp<PERMA_FORCE>::ETsWithComp, Comp<STATE>::ETsWithComp);
-	//constexpr auto p = removeInstancesOf<ET_ID,13,13-noOfInstancesOf(BLANK_FOR_SPARSE,b)>(BLANK_FOR_SPARSE, b);
-	//static constexpr std::array<ET_ID, 3> e = { OBJ, PHYS_OBJ, ARROW };
-	//static constexpr std::array<Comp_ID, 2> f = { MASS, SPEED};
-	//static constexpr std::array<bool, 15> r = {};
-	//constexpr auto c = areAllInArray(f, ET<MAGIC_ARROW>::components);
-	//constexpr auto d = getIntersec(f);
+	constexpr auto b = intersection(Comp<POS3D>::ETsWithComp, Comp<PERMA_FORCE>::ETsWithComp, Comp<STATE>::ETsWithComp);
+	constexpr auto p = removeInstancesOf<ET_ID,13,13-noOfInstancesOf(BLANK_FOR_SPARSE,b)>(BLANK_FOR_SPARSE, b);
+	static constexpr std::array<ET_ID, 3> e = { OBJ, PHYS_OBJ, ARROW };
+	static constexpr std::array<Comp_ID, 2> f = { MASS, SPEED};
+	static constexpr std::array<bool, 15> r = {};
+	constexpr auto c = areAllInArray(f, ET<MAGIC_ARROW>::components);
+	constexpr auto d = getIntersec(f);
+	constexpr auto l = ET<ARROW>::hasComp(PERMA_FORCE);
 	while (1) {}
 	return 0;
 }
