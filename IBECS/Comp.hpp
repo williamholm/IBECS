@@ -20,7 +20,29 @@ struct ComponentArray<comp_id, 0>
 {
 	static constexpr std::array<bool, 1> value = { isInArray(comp_id, ET<(ET_ID)0>::components) };
 };
+/*
 
+
+
+*/
+template<Comp_ID comp_id, int index = ET_ID::MAX_ET_ID>
+struct NCA
+{
+	static constexpr std::array<ET_ID, index + 1> value =
+		concatinate(NCA<comp_id, index - 1>::value, sharedComp<ET_ID(index)>()[comp_id]);
+};
+
+template<Comp_ID comp_id>
+struct NCA<comp_id, ET_ID::MAX_ET_ID>
+{
+	static constexpr std::array<ET_ID, ET_ID::MAX_ET_ID + 1> value = concatinate(NCA<comp_id, ET_ID::MAX_ET_ID - 1>::value, ET_ID::MAX_ET_ID);
+};
+
+template<Comp_ID comp_id>
+struct NCA<comp_id, 0>
+{
+	static constexpr std::array<ET_ID, 1> value = { sharedComp<ET_ID(0)>()[comp_id] };
+};
 
 #pragma endregion
 
@@ -58,6 +80,22 @@ constexpr std::array<ET_ID, ET_ID::MAX_ET_ID + 1> getCompSparse()
 	sparse[ET_ID::MAX_ET_ID] = (ET_ID)counter;
 	return sparse;
 }
+
+template<Comp_ID id>
+constexpr std::array<uint32_t, ET_ID::MAX_ET_ID + 1> offsetArray()
+{
+	int counter = 0;
+	std::array<uint32_t, ET_ID::MAX_ET_ID + 1> offsets = {};
+	for (int i = 0; i < ET_ID::MAX_ET_ID; ++i)
+	{
+		if (NCA<id>::value[i] != i && NCA<id>::value[i] != BLANK_FOR_SPARSE)
+		{
+			offsets[i] += maxEntityAmount()[i];
+		}
+	}
+	return offsets;
+}
+
 template<Comp_ID id,int N>
 consteval std::array<ET_ID, N> isInSparse() noexcept
 {
@@ -86,11 +124,13 @@ struct Comp
 	static constexpr uint32_t attributes = CompInfo<id>::attributes;
 	//if compArray[ET_ID] = true ET_ID contains component.
 	static constexpr auto compArray = ComponentArray<id>::value;
+	static constexpr auto nca = NCA<id>::value;
 	//sparse set for ordering ETs which have this component, last value is total no of entitys with component.
 	static constexpr auto sparse = getCompSparse<id>();
 	static constexpr int noOfETsWithComp = sparse[ET_ID::MAX_ET_ID];
 	//array of ET_IDs which contain this component - mainly useful for testing
 	static constexpr auto ETsWithComp = isInSparse<id, noOfETsWithComp>();
 	static constexpr int sortGroup = positionalArray(sortArray(), uniqueElements<noOfUniqueElements(sortArray())>(sortArray()))[id];
+	static constexpr auto offsets = offsetArray<id>();
 };
 

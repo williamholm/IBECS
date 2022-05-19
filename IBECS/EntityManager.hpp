@@ -27,6 +27,7 @@ public:
 	template<ET_ID id>
 	Entity32Bit addEntity(ETData<id>& data)
 	{
+
 		Entity32Bit entity;
 		if (mDeletedEntityNum[id].size() == 0)
 		{

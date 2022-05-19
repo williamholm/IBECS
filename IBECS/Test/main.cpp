@@ -4,6 +4,7 @@
 
 int main()
 {
+
 	EntityTester tester(1000000);
 	//tester.deleteEntities(500000);
 	//tester.addEntities(500000); //this is significantly faster than first time adding as capacity is already there so less resizing.
@@ -12,6 +13,22 @@ int main()
 	tester.accessByET(100);
 //	tester.combinedTest();
 	constexpr auto re = sharedComp<MAGIC_ARROW>(); //need to change add/delete entity and non-random acces
+	constexpr auto le = Comp<SPEED>::nca;
+	constexpr auto ne = Comp<SPEED>::offsets;
+	/*
+		now need way for E32Bit -> shared comps
+
+		method 1)
+
+		new constexpr func that gives func<comp>(id) = offset. offset is cumilation of max no of ET < id that share comp.
+
+		eg.
+
+		E32Bit(MAGIC_ARROW,5) -> sparse[5 + Comp<id>::offsets[MAGIC_ARROW]] -> index
+		how does EDS work? - deleting might become a bit funky but maybe is fine.
+
+		need to change resizing of sparse from maxEntityAmount to maxEntityAmount + max offset.
+	*/
 
 	constexpr auto be = ET<ARROW>::sparse;
 	constexpr auto b = intersection(Comp<POS3D>::ETsWithComp, Comp<PERMA_FORCE>::ETsWithComp, Comp<STATE>::ETsWithComp);

@@ -390,3 +390,4 @@ constexpr std::array<ET_ID, MAX_COMP_ID> sharedComp()
 
 	return sparse;
 }
+
