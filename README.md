@@ -1,5 +1,5 @@
 # IBECS
-IBECS is an Entity Component System that stores component data in vectors that can be accessed via entity types which are an analouge to structs in standard C/C++
+IBECS is an Entity Component System that stores component data in vectors that can be accessed via entity types which are analogous to structs in standard C/C++
 # Requirements
 c++ 20, google test if doing the unit tests in Test/test.cpp.
 # How to Use
